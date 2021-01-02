@@ -1,10 +1,14 @@
-# Vim Grammar
+---
+title: "Vim Grammar"
+metaTitle: "Vim Grammar"
+metaDescription: "Learn how to speak to Vim."
+---
 
 It is easy to get intimidated by the complexity of many Vim commands. If you see a Vim user doing `gUfV` or `1GdG`, you may not immediately know what these commands do. In this chapter, I will break down the general structure of Vim commands into a simple grammar rule.
 
 This is the most important chapter in the entire book. Once you understand Vim commands' grammar-like structure, you will be able to "speak" to Vim. By the way, when I say *Vim language* in this chapter, I am not talking about Vimscript (the built-in programming language to customize and to create Vim plugins). Here it means the general pattern of normal mode commands.
 
-# How to learn a language
+## How To Learn A Language
 
 I am not a native English speaker. I learned English when I was 13 when I moved to the US. I had to do three things to build up linguistic proficiency:
 
@@ -14,7 +18,7 @@ I am not a native English speaker. I learned English when I was 13 when I moved 
 
 Likewise, to speak Vim language, you need to learn the grammar rules, increase your vocabulary, and practice until you can run the commands without thinking.
 
-# Grammar Rule
+## Grammar Rule
 
 You only need to know one grammar rule to speak Vim language:
 
@@ -22,7 +26,7 @@ You only need to know one grammar rule to speak Vim language:
 verb + noun
 ```
 
-That's it! 
+That's it!
 
 This is equivalent to saying these English phrases:
 
@@ -32,10 +36,10 @@ This is equivalent to saying these English phrases:
 
 Now you need to build up your vocabulary with basic Vim verbs and nouns.
 
-# Vocabulary
+## Vocabulary
 ## Nouns (Motions)
 
-Let's talk about motions as nouns. Motions are used to move around in Vim. They are also Vim nouns. Below you'll see some motion examples :
+Let's talk about motions as nouns. Motions are used to move around in Vim. They are also Vim nouns. Below you'll see some motion examples:
 
 ```
 h    Left
@@ -61,8 +65,8 @@ c    Delete text, save to register, and start insert mode
 
 Now that you know basic nouns and verbs, let's apply our grammar rule! Suppose you have this expression:
 
-```
-const learn = "vim"; 
+```javascript
+const learn = "vim";
 ```
 - To yank everything from your current location to the end of the line: `y$`.
 - To delete from your current location to the beginning of the next word: `dw`.
@@ -84,7 +88,7 @@ I hope everything starts to make sense. But I am not quite done yet. Vim has one
 
 Imagine you are somewhere inside a pair of parentheses like `(hello vim)` and you need to delete the entire phrase inside the parentheses. How can you quickly do it? Is there a way to delete the "group" you are inside of?
 
-The answer is yes. Texts often come structured. They are often put inside parentheses, quotes, brackets, braces, and so on. Vim has a way to capture this structure with text objects. 
+The answer is yes. Texts often come structured. They are often put inside parentheses, quotes, brackets, braces, and so on. Vim has a way to capture this structure with text objects.
 
 Text objects are used with operators. There are two types of text objects:
 
@@ -99,21 +103,21 @@ Inner text object selects the object inside *without* the white space or the sur
 
 Let's look at a different example. Suppose you have this Javascript function and your cursor is on "Hello":
 
-```
+```javascript
 const hello = function() {
-  console.log("Hello Vim"); 
+  console.log("Hello Vim");
   return true;
 }
 ```
 
 - To delete the entire "Hello Vim": `di(`.
 - To delete the content of function (surrounded by `{}`): `di{`.
-- To delete the "Hello" string: `diw`. 
+- To delete the "Hello" string: `diw`.
 
-Text objects are powerful because you can target different objects from one location. You can delete the objects inside the pair of parentheses, the function block, or the whole word. Moreover, when you see `di(`, `di{`, and `diw`, you get a pretty good idea what text objects they represent (a pair of parentheses, a pair of braces, and a word). 
+Text objects are powerful because you can target different objects from one location. You can delete the objects inside the pair of parentheses, the function block, or the whole word. Moreover, when you see `di(`, `di{`, and `diw`, you get a pretty good idea what text objects they represent (a pair of parentheses, a pair of braces, and a word).
 
 Let's look at one last example. Suppose you have these HTML tags:
-```
+```html
 <div>
   <h1>Header1</h1>
   <p>Paragraph1</p>
@@ -146,7 +150,7 @@ t         XML tags
 ```
 To learn more, check out `:h text-objects`.
 
-# Composability and Grammar
+## Composability And Grammar
 
 After learning Vim grammar, let's discuss composability in Vim and why this is a great feature to have in a text editor.
 
@@ -179,19 +183,19 @@ Result:
 03  Bunny   Ok
 ```
 
-Great! Even piping works from inside Vim. 
+Great! Even piping works from inside Vim.
 
 This is the power of Vim's composability. The more you know your operators, motions, and terminal commands, your ability to compose complex actions is *multiplied*.
 
 Let me elaborate. Suppose you only know four motions: `w, $, }, G` and the delete (`d`) operator. You can do 8 things: move 4 different ways (`w, $, }, G`) and delete 4 different targets (`dw, d$, d}, dG`). Then one day you learn about the uppercase (`gU`) operator. You have added not just one new ability to your Vim tool belt, but *four*: `gUw, gU$, gU}, gUG`. Now you have 12 tools in your Vim tool belt. Each new knowledge is a multiplier to your current abilities. If you know 10 motions and 5 operators, now you have 60 moves (50 operations + 10 motions) in your arsenal. Moreover, the  line number motion (`nG`) gives you `n` motions, where `n` is how many lines you have in your file (example: to go to line 5, `5G`). The search motion (`/`) practically gives you near unlimited number motion because you can search for anything. External command operator (`!`) gives you as many filtering tools as the number of terminal commands you know. Using a composable tool like Vim, everything you know can be connected together to do more complex operations. The more you know, the more powerful you become.
 
-This composable behavior echoes Unix philosophy: *do one thing well*. A motion has one job: go to X. An operator has one job: do Y. By combining an operator with a motion, you get YX: do Y on X.
+This composable behavior echoes Unix philosophy: *do one thing well*. An operator has one job: do Y. A motion has one job: go to X. By combining an operator with a motion, you get YX: do Y on X.
 
-Even better,  motions and operators are extendable. You can create custom motions and operators to add to your Vim toolbelt. [`vim-textobj-user`](https://github.com/kana/vim-textobj-user) has a [list](https://github.com/kana/vim-textobj-user/wiki) of custom text objects.
+Even better, motions and operators are extendable. You can create custom motions and operators to add to your Vim toolbelt. [`vim-textobj-user`](https://github.com/kana/vim-textobj-user) has a [list](https://github.com/kana/vim-textobj-user/wiki) of custom text objects.
 
 By the way, it's okay if you don't know `column` or `awk` commands I just did. The point is that Vim integrates very well with terminal commands.
 
-# Learn Grammar the Smart Way
+## Learn Vim Grammar The Smart Way
 
 You just learned about Vim grammar's only rule:
 ```
@@ -199,6 +203,6 @@ verb + noun
 ```
 One of my biggest Vim "AHA!" moments was when I had just learned about the uppercase (`gU`) operator and wanted to uppercase a word, I instinctively ran `gUiw` and it worked! The word I was on was uppercased. I finally began to understand Vim. My hope is that you will have your own "AHA!" moment soon, if not already.
 
-The goal is this chapter is to show you the `verb + noun` pattern in Vim so you will approach learning Vim like learning a new language instead of memorizing every command combinations. 
+The goal is this chapter is to show you the `verb + noun` pattern in Vim so you will approach learning Vim like learning a new language instead of memorizing every command combinations.
 
 Learn the pattern and understand the implications. That's the smart way to learn.
